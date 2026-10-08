@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rocks from the Sky: Meteoroids, Meteors &amp; Meteorites</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;800;900&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap">
+<style>
+:root{color-scheme:dark;--ink:#150c33;--ink2:#241552;--chalk:#f4eeff;--dim:#b9aadf;--flame:#ff5c7a;--gold:#ffc24b;--ice:#63e6da;--violet:#8b6cff;
+--disp:'Unbounded','Arial Black',sans-serif;--body:'Literata',Georgia,serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--ink);color:var(--chalk);font:400 1.06rem/1.7 var(--body)}
+h1,h2,h3{font-family:var(--disp);line-height:1.05;margin:0;letter-spacing:-.02em}
+p{margin:0 0 1em;max-width:62ch}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+section{padding:72px 0}
+h2{font-size:clamp(1.7rem,5vw,2.8rem);font-weight:800;margin-bottom:22px}
+.lede{color:var(--dim);font-size:1.15rem}
+
+.cosmos{position:fixed;inset:0;z-index:-1;background:radial-gradient(60% 45% at 12% 18%,#6a35e866,transparent 70%),radial-gradient(50% 40% at 88% 32%,#ff4f8b48,transparent 70%),radial-gradient(55% 45% at 28% 82%,#1fc7c438,transparent 70%),radial-gradient(40% 35% at 92% 92%,#ffb34740,transparent 70%),radial-gradient(30% 25% at 55% 50%,#8b6cff22,transparent 70%),#09041f}
+.cosmos canvas{width:100%;height:100%;display:block}
+section[style]{background:#241552b3!important}
+.fall,.show div,.test div{backdrop-filter:blur(4px)}
+/* hero */
+.hero{position:relative;height:min(78vh,640px);min-height:480px;overflow:hidden}
+#sky{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero .txt{position:relative;z-index:2;padding-top:36px;pointer-events:none}
+.hero h1{font-size:clamp(2.4rem,9vw,5.6rem);font-weight:900;max-width:8.5em}
+.hero h1 span{background:linear-gradient(95deg,var(--gold),var(--flame) 60%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{margin-top:14px;color:var(--dim);max-width:34ch}
+.lab{background:linear-gradient(#241552cc,#150c33b3);padding:26px 0 40px;border-top:1px solid #ffffff14}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:800 .8rem var(--disp);color:var(--chalk);background:#ffffff0f;border:1.5px solid #ffffff2e;border-radius:999px;padding:12px 18px;cursor:pointer}
+.btn:hover{background:#ffffff1c}
+.btn[aria-pressed=true]{background:var(--flame);border-color:var(--flame);color:#fff}
+.btn:focus-visible,summary:focus-visible{outline:3px solid var(--ice);outline-offset:3px}
+.readout{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:start}
+#stage{font:900 clamp(1.6rem,5vw,2.6rem) var(--disp);min-width:6.4em;transition:color .3s}
+#stage[data-s=meteoroid]{color:var(--ice)}#stage[data-s=meteor]{color:var(--flame)}#stage[data-s=meteorite]{color:var(--gold)}
+#say{margin:0;color:var(--chalk)}
+@media(max-width:620px){.readout{grid-template-columns:1fr}}
+
+a.btn{text-decoration:none;display:inline-block}
+.btn.play{background:linear-gradient(95deg,var(--gold),var(--flame));border-color:transparent;color:#1a0b2e}
+.btn.play:hover{filter:brightness(1.1)}
+#gm{position:fixed;inset:0;z-index:200;background:#09041f;display:none}
+#gm.on{display:block}
+#gm iframe{width:100%;height:100%;border:0;display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+.art{width:100%;height:auto;display:block;max-height:60vh}
+.cap{margin-top:14px;padding:14px 18px;border-radius:16px;background:#ffffff0f;min-height:5.6em}.cap b{display:block;font:800 1.2rem var(--disp);margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chips span{padding:7px 14px;border-radius:999px;background:#ffffff14;border:1px solid #ffffff26;font-size:.92rem}
+input[type=range]{accent-color:#ff5c7a;width:100%}
+.ktabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.big{font:900 clamp(3.6rem,17vw,8.5rem)/1 var(--disp);background:linear-gradient(95deg,var(--gold),var(--flame));-webkit-background-clip:text;background-clip:text;color:transparent}
+.bigsub{font:800 clamp(1.1rem,4vw,1.8rem) var(--disp);margin-top:6px}
+.tl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left;margin:6px 0 22px}.tl p{font-size:.95rem;color:var(--dim);margin:0}.tl b{color:var(--gold);display:block;font:800 .9rem var(--disp);margin-bottom:4px}
+.fly{animation:fly 5.5s ease-in infinite}@keyframes fly{from{transform:translate(-40px,30px)}to{transform:translate(720px,150px)}}
+.sk{animation:sk 3s ease-in-out infinite}@keyframes sk{0%,100%{opacity:0}35%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.fly{animation:none;transform:translate(420px,110px)}.sk{animation:none;opacity:.7}}
+@media(max-width:760px){.two,.tl{grid-template-columns:1fr}}
+.src li{margin:0 0 12px;color:var(--dim)}.src b{color:var(--gold)}
+/* three names */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-radius:28px;overflow:hidden}
+.three>div{padding:34px 26px}
+.three h3{font-size:clamp(1.3rem,3.6vw,2rem);font-weight:900;margin-bottom:6px}
+.three .where{font-style:italic;margin-bottom:14px;opacity:.85}
+.n1{background:#0f2a3d;color:var(--ice)}.n2{background:linear-gradient(160deg,#5a123a,#a3243f);color:var(--gold)}.n3{background:#3a2a12;color:#ffd98a}
+.three p{color:var(--chalk)}
+@media(max-width:760px){.three{grid-template-columns:1fr}}
+.rule{margin-top:26px;padding:18px 22px;border-left:5px solid var(--gold);background:#ffffff0a;border-radius:0 16px 16px 0}
+
+/* types */
+.types{display:grid;grid-template-columns:260px 1fr;gap:34px;align-items:center}
+.rock{width:100%;aspect-ratio:1;border-radius:46% 54% 41% 59%/55% 42% 58% 45%;box-shadow:inset -18px -22px 40px #0008,0 20px 60px #0007;transition:background .4s,border-radius .6s}
+.rock[data-t=stony]{background:radial-gradient(circle at 30% 25%,#8a7a6c,#4c4038 70%);background-image:radial-gradient(#d8cdbf 1.5px,transparent 2px),radial-gradient(circle at 30% 25%,#8a7a6c,#4c4038 70%);background-size:22px 22px,100% 100%}
+.rock[data-t=iron]{background:repeating-linear-gradient(60deg,#0000 0 9px,#ffffff22 9px 11px),repeating-linear-gradient(-60deg,#0000 0 9px,#ffffff1a 9px 11px),linear-gradient(135deg,#c9d1da,#5b6572 60%,#2a313b);border-radius:38% 62% 55% 45%/48% 40% 60% 52%}
+.rock[data-t=pallasite]{background:radial-gradient(#cfe86a 5px,#0000 7px) 0 0/30px 30px,linear-gradient(135deg,#b9c0c9,#6a7480 60%,#3b434e);border-radius:52% 48% 60% 40%/42% 58% 42% 58%}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+#tt{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;margin-bottom:10px}
+@media(max-width:700px){.types{grid-template-columns:1fr}.rock{max-width:220px}}
+
+/* falls */
+.falls{display:grid;gap:14px}
+.fall{padding:22px 24px;border-radius:22px;background:var(--ink2);border:1px solid #ffffff14}
+.fall:nth-child(2){margin-left:clamp(0px,6vw,60px);background:#2b1457}
+.fall:nth-child(3){margin-left:clamp(0px,3vw,30px)}
+.fall:nth-child(4){margin-left:clamp(0px,9vw,90px);background:#2b1457}
+.fall h3{font-size:1.15rem;font-weight:800;margin-bottom:6px;color:var(--gold)}
+.fall p{margin:0}
+
+/* myths */
+details{border-bottom:1px solid #ffffff22;padding:18px 0}
+summary{cursor:pointer;font:800 1.1rem var(--disp);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:'+';color:var(--flame);font-size:1.6rem;line-height:1}
+details[open] summary:after{content:'\2212'}
+details p{margin:14px 0 0;color:var(--dim)}
+
+/* showers */
+.show{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.show div{padding:22px;border-radius:20px;background:linear-gradient(170deg,#ffffff12,#ffffff05)}
+.show h3{font-size:1.1rem;font-weight:800;margin-bottom:4px}
+.show b{color:var(--ice);font-weight:600}
+.show p{margin:8px 0 0;font-size:.98rem;color:var(--dim)}
+
+.test{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:10px}
+.test div{padding:18px 20px;border:1.5px dashed #ffffff40;border-radius:18px}
+.test h3{font-size:1rem;font-weight:800;color:var(--gold);margin-bottom:6px}
+.test p{margin:0;font-size:.97rem}
+.pbtn{position:fixed;z-index:10;top:calc(env(safe-area-inset-top,0px) + 12px);right:14px;background:#150c33b3;backdrop-filter:blur(6px)}
+#ct{display:none;position:fixed;z-index:10;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);font:800 .75rem var(--disp);color:var(--dim);background:#150c33cc;padding:8px 14px;border-radius:999px}
+html.present{font-size:125%;scroll-snap-type:y mandatory}
+html.present #ct{display:block}
+html.present .hero{height:calc(100vh - 230px);min-height:340px;scroll-snap-align:start}
+html.present .lab{padding:18px 0 22px}
+html.present main section{min-height:100vh;display:flex;align-items:center;scroll-snap-align:start}
+html.present main section>.wrap{width:100%}
+html.present .wrap{max-width:min(1360px,94vw)}
+html.present{font-size:clamp(100%,2.4vh,160%)}
+html.present main section{padding:24px 0}
+html.present h2{margin-bottom:12px;font-size:clamp(1.6rem,4.4vh,2.6rem)}
+html.present .art{max-height:42vh}
+html.present p{margin-bottom:.6em}
+html.present .rule{margin-top:14px;padding:12px 18px}
+html.present .falls{grid-template-columns:1fr 1fr}
+html.present .fall{margin-left:0!important}
+html.present #ct{font-size:.9rem}
+html.present footer{display:none}
+footer{padding:40px 0 60px;color:var(--dim);font-size:.92rem;border-top:1px solid #ffffff14}
+.orig{border-top:1px solid #ffffff14}
+.lb{font:600 13px var(--body);fill:#f4eeff}
+.ocards{display:grid;gap:12px}
+.ocards div{padding:16px 20px;border-radius:18px;background:var(--ink2);border:1px solid #ffffff14}
+.ocards h3{font-size:1.05rem;font-weight:800;display:inline;color:var(--gold);margin-right:10px}
+.ocards b{color:var(--ice);font-weight:600;font-size:.92rem}
+.ocards p{margin:6px 0 0;font-size:.98rem;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="cosmos" aria-hidden="true"><canvas id="bg"></canvas></div>
+<button class="btn pbtn" id="pbtn" aria-pressed="false" title="Full-screen slides: arrow keys to move, Esc to exit">Present</button>
+<div id="ct" aria-hidden="true"></div>
+
+<header class="hero">
+<canvas id="sky" aria-label="Animated schematic of a rock falling through Earth's atmosphere"></canvas>
+<div class="wrap txt">
+<h1>Rocks <span>from the sky</span></h1>
+<p class="sub">Meteoroids, meteors and meteorites: one rock, three names, one very hot trip.</p>
+</div>
+</header>
+
+<div class="lab"><div class="wrap">
+<div class="row" role="group" aria-label="Choose a rock to drop">
+<button class="btn" data-k="grain" aria-pressed="false">Sand grain</button>
+<button class="btn" data-k="fist" aria-pressed="true">Fist-sized stone</button>
+<button class="btn" data-k="house" aria-pressed="false">Building-sized rock</button>
+</div>
+<div style="margin-top:16px"><button class="btn play" data-play>Play the game</button></div>
+<div class="readout">
+<div id="stage" data-s="meteoroid" aria-live="polite">Meteoroid</div>
+<p id="say">Pick a rock and watch what the atmosphere does to it. The scene is a schematic, not to scale.</p>
+</div>
+</div></div>
+
+<main>
+<section><div class="wrap">
+<h2>One rock, three names</h2>
+<p class="lede">The name changes with where the rock is, not with what it is.</p>
+<div class="three">
+<div class="n1"><h3>Meteoroid</h3><div class="where">Out in space</div><p>A chunk of rock or metal drifting around the Sun. Most are dust-sized crumbs shed by comets and asteroids. Scientists usually cap the size at about a metre; anything bigger is called an asteroid.</p></div>
+<div class="n2"><h3>Meteor</h3><div class="where">In the sky</div><p>The streak of light, not the rock. A meteoroid slams into air at tens of kilometres per second, and the air in front gets compressed and superheated, glowing and stripping off material. Extra-bright ones are fireballs.</p></div>
+<div class="n3"><h3>Meteorite</h3><div class="where">On the ground</div><p>Whatever survives and lands. Most meteoroids burn up completely, so a meteorite is the lucky leftover, and a free sample of the early solar system you can hold.</p></div>
+</div>
+<div class="rule"><p style="margin:0">Quick rule: meteoroid is the rock in space, meteor is the light show, meteorite is the rock you find afterward.</p></div>
+</div></section>
+
+<section class="orig" id="origin"><div class="wrap">
+<h2>Where do they come from?</h2>
+<p class="lede">Almost all of them start out in orbit around the Sun, not far from home.</p>
+<div class="two"><svg class="art" viewBox="0 0 640 360" role="img" aria-label="Map of the Solar System: the Sun, Earth, Mars, the asteroid belt, Jupiter and a comet with a tail">
+<defs><clipPath id="oc"><rect width="640" height="360" rx="22"/></clipPath><radialGradient id="osun"><stop offset="0" stop-color="#fff6d6"/><stop offset=".5" stop-color="#ffc24b"/><stop offset="1" stop-color="#ff5c7a" stop-opacity="0"/></radialGradient><linearGradient id="oct" x1="0" x2="1"><stop offset="0" stop-color="#63e6da"/><stop offset="1" stop-color="#63e6da" stop-opacity="0"/></linearGradient></defs>
+<g clip-path="url(#oc)"><rect width="640" height="360" fill="#0a0528"/>
+<g fill="none" stroke="#fff" stroke-opacity=".16"><circle cx="70" cy="180" r="90"/><circle cx="70" cy="180" r="135"/><circle cx="70" cy="180" r="310" stroke-dasharray="5 7"/></g>
+<circle cx="70" cy="180" r="62" fill="url(#osun)"/><circle cx="70" cy="180" r="24" fill="#ffd36e"/>
+<g fill="#ffc24b" opacity=".85"><circle cx="252" cy="125" r="1.3"/><circle cx="230" cy="41" r="2.2"/><circle cx="301" cy="212" r="1.7"/><circle cx="217" cy="36" r="1.3"/><circle cx="263" cy="90" r="1.3"/><circle cx="231" cy="278" r="1.7"/><circle cx="280" cy="227" r="1.3"/><circle cx="273" cy="206" r="1.7"/><circle cx="237" cy="22" r="2.2"/><circle cx="280" cy="151" r="2.2"/><circle cx="289" cy="202" r="1.3"/><circle cx="286" cy="210" r="2.2"/><circle cx="243" cy="41" r="1.3"/><circle cx="276" cy="222" r="2.8"/><circle cx="256" cy="273" r="2.8"/><circle cx="261" cy="135" r="1.7"/><circle cx="255" cy="244" r="2.2"/><circle cx="301" cy="190" r="2.8"/><circle cx="292" cy="98" r="1.3"/><circle cx="261" cy="184" r="2.2"/><circle cx="245" cy="65" r="1.3"/><circle cx="203" cy="310" r="2.2"/><circle cx="264" cy="127" r="2.8"/><circle cx="276" cy="208" r="1.3"/><circle cx="223" cy="321" r="1.3"/><circle cx="234" cy="31" r="2.8"/><circle cx="260" cy="108" r="2.2"/><circle cx="215" cy="31" r="1.7"/><circle cx="276" cy="219" r="1.7"/><circle cx="240" cy="262" r="1.7"/><circle cx="300" cy="140" r="2.8"/><circle cx="228" cy="46" r="2.2"/><circle cx="252" cy="317" r="2.2"/><circle cx="293" cy="260" r="2.8"/><circle cx="207" cy="312" r="1.7"/><circle cx="253" cy="59" r="1.3"/><circle cx="285" cy="175" r="2.2"/><circle cx="248" cy="112" r="2.2"/><circle cx="266" cy="217" r="1.7"/><circle cx="270" cy="246" r="1.3"/><circle cx="300" cy="163" r="2.8"/><circle cx="271" cy="145" r="2.8"/><circle cx="251" cy="221" r="1.3"/><circle cx="212" cy="330" r="1.3"/><circle cx="248" cy="131" r="1.3"/><circle cx="281" cy="204" r="2.2"/><circle cx="253" cy="215" r="1.7"/><circle cx="257" cy="216" r="2.2"/><circle cx="226" cy="329" r="2.8"/><circle cx="255" cy="44" r="2.8"/><circle cx="269" cy="173" r="1.7"/><circle cx="228" cy="56" r="2.2"/><circle cx="291" cy="172" r="1.3"/><circle cx="277" cy="68" r="2.2"/><circle cx="246" cy="61" r="1.3"/><circle cx="250" cy="263" r="1.3"/><circle cx="256" cy="243" r="2.2"/><circle cx="226" cy="308" r="1.7"/><circle cx="295" cy="192" r="2.2"/><circle cx="281" cy="229" r="1.7"/><circle cx="269" cy="292" r="1.7"/><circle cx="254" cy="79" r="1.3"/><circle cx="224" cy="345" r="2.8"/><circle cx="273" cy="93" r="2.2"/><circle cx="304" cy="159" r="2.2"/><circle cx="216" cy="320" r="1.7"/><circle cx="234" cy="51" r="2.2"/><circle cx="261" cy="77" r="1.3"/><circle cx="288" cy="172" r="1.3"/><circle cx="230" cy="280" r="2.8"/><circle cx="269" cy="282" r="2.8"/><circle cx="234" cy="305" r="2.2"/><circle cx="251" cy="30" r="2.8"/><circle cx="293" cy="166" r="1.3"/><circle cx="248" cy="250" r="1.7"/><circle cx="221" cy="27" r="2.8"/><circle cx="236" cy="273" r="2.8"/><circle cx="265" cy="233" r="1.7"/><circle cx="228" cy="17" r="1.3"/><circle cx="304" cy="190" r="2.8"/><circle cx="202" cy="320" r="1.7"/><circle cx="206" cy="42" r="1.7"/><circle cx="251" cy="266" r="2.8"/><circle cx="227" cy="278" r="2.2"/><circle cx="242" cy="315" r="2.8"/><circle cx="267" cy="300" r="1.7"/><circle cx="281" cy="191" r="1.3"/><circle cx="253" cy="312" r="1.3"/><circle cx="240" cy="265" r="1.7"/><circle cx="292" cy="170" r="1.3"/></g>
+<circle cx="160" cy="180" r="7" fill="#4aa8ff"/><circle cx="184" cy="108" r="5" fill="#ff7a5c"/>
+<circle cx="362" cy="288" r="20" fill="#e8a56a"/><path d="M345 282h34M343 290h38" stroke="#b9703c" stroke-width="3" stroke-linecap="round"/>
+<path d="M470 62 L600 36 L600 84Z" fill="url(#oct)" opacity=".8" transform="rotate(8 470 62)"/><circle cx="470" cy="62" r="8" fill="#fff"/>
+<path d="M440 92 Q300 130 195 108" fill="none" stroke="#63e6da" stroke-opacity=".5" stroke-dasharray="4 6"/>
+<path d="M285 150 Q230 200 172 190" fill="none" stroke="#ffc24b" stroke-width="2" stroke-dasharray="5 5"/><path d="M178 183l-12 7 13 4z" fill="#ffc24b"/>
+<polygon points="276,142 290,138 297,150 286,160 273,155" fill="#c9b8ff" stroke="#fff" stroke-width="1.5"/>
+<g class="lb"><text x="52" y="236">Sun</text><text x="150" y="212">Earth</text><text x="146" y="100">Mars</text><text x="300" y="326">Jupiter</text><text x="462" y="104" fill="#63e6da">Comet</text><text x="318" y="238" fill="#ffc24b">Asteroid belt</text></g></g></svg><div class="ocards">
+<div><h3>Asteroids</h3><b>Most meteorites</b><p>Leftover building blocks of the planets, mostly in the asteroid belt between Mars and Jupiter. Collisions and Jupiter&rsquo;s gravity nudge fragments onto paths that cross Earth&rsquo;s.</p></div>
+<div><h3>Comets</h3><b>Most shooting-star showers</b><p>Icy bodies shed dust as the Sun warms them. Earth crosses these dusty trails every year. The grains burn up, so showers rarely leave rocks.</p></div>
+<div><h3>The Moon and Mars</h3><b>Rare and special</b><p>Big impacts can throw rocks off the Moon or Mars. A small number have landed on Earth and been identified.</p></div>
+</div></div>
+<div class="rule"><p style="margin:0"><b>Rocky&rsquo;s home address:</b> most likely the asteroid belt, somewhere between Mars and Jupiter.</p></div>
+</div></section>
+
+<section style="background:var(--ink2)"><div class="wrap two"><div><h2>Earth gets in the way</h2>
+<p class="lede">Meet Rocky, a piece of rock minding his own business in space.</p>
+<p>Then Earth says: come here. Drag the slider and follow Rocky all the way down.</p>
+<input id="rk" type="range" min="0" max="100" value="0" aria-label="Move Rocky toward Earth">
+<div class="cap"><b id="rkn">Meteoroid</b><span id="rkt"></span></div></div>
+<svg class="art" viewBox="0 0 640 380" role="img" aria-label="Rocky the rock falling toward Earth"><defs><radialGradient id="eg" cx="35%" cy="30%"><stop offset="0" stop-color="#4aa3ff"/><stop offset="1" stop-color="#0b2a66"/></radialGradient><radialGradient id="gl"><stop offset="0" stop-color="#fff3c8"/><stop offset=".4" stop-color="#ffb04a" stop-opacity=".8"/><stop offset="1" stop-color="#ff5c7a" stop-opacity="0"/></radialGradient><filter id="bl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter></defs>
+<rect width="640" height="380" rx="22" fill="#0a0528"/><g fill="#fff" opacity=".8"><circle cx="40" cy="30" r="1.6"/><circle cx="130" cy="70" r="1.2"/><circle cx="230" cy="24" r="1.8"/><circle cx="330" cy="60" r="1.2"/><circle cx="420" cy="30" r="1.6"/><circle cx="590" cy="90" r="1.4"/><circle cx="60" cy="150" r="1.2"/><circle cx="180" cy="120" r="1.5"/></g><circle cx="520" cy="560" r="392" fill="none" stroke="#63e6da" stroke-opacity=".3" stroke-width="22"/><circle cx="520" cy="560" r="360" fill="url(#eg)"/>
+<g id="rocky"><line id="rt" x1="0" y1="0" x2="-120" y2="-42" stroke="#ff9a3c" stroke-width="22" stroke-linecap="round" filter="url(#bl)" opacity="0"/><circle id="rg" r="60" fill="url(#gl)" opacity="0"/><polygon points="-24,-6 -14,-22 8,-24 24,-10 22,12 6,24 -16,20" fill="#8d8296" stroke="#5c5266" stroke-width="3"/><circle cx="-8" cy="-5" r="3.5" fill="#fff"/><circle cx="8" cy="-5" r="3.5" fill="#fff"/><path id="rm" d="M-8 8 Q0 15 8 8" fill="none" stroke="#2a2133" stroke-width="3" stroke-linecap="round"/></g></svg></div></section>
+<section><div class="wrap two"><svg class="art" viewBox="0 0 640 300" role="img" aria-label="A fireball streaking over a dark horizon"><defs><linearGradient id="ft" x1="1" x2="0"><stop offset="0" stop-color="#fff1c2"/><stop offset=".35" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ff5c7a" stop-opacity="0"/></linearGradient></defs><rect width="640" height="300" rx="22" fill="#0a0528"/><g fill="#fff" opacity=".8"><circle cx="40" cy="30" r="1.6"/><circle cx="130" cy="70" r="1.2"/><circle cx="230" cy="24" r="1.8"/><circle cx="330" cy="60" r="1.2"/><circle cx="420" cy="30" r="1.6"/><circle cx="590" cy="90" r="1.4"/><circle cx="60" cy="150" r="1.2"/><circle cx="180" cy="120" r="1.5"/></g><circle cx="560" cy="48" r="5" fill="#fff"/><g class="fly"><path d="M0 0 L-320 -40 L-320 40Z" fill="url(#ft)" opacity=".9" filter="url(#bl)"/><circle r="22" fill="#fff6d6" filter="url(#bl)"/><circle r="11" fill="#fff"/></g><path d="M0 270 L80 240 L160 262 L250 228 L340 258 L450 234 L540 260 L640 238 V300H0Z" fill="#120a2b"/></svg>
+<div><h2>Fireballs</h2><p class="lede">Some meteors are bright enough to outshine Venus.</p><p>The biggest events can bring sonic booms, fragmentation and airbursts, like the one over Chelyabinsk.</p><div class="chips"><span>Brighter than Venus</span><span>Sonic booms</span><span>Fragmentation</span><span>Airbursts</span></div></div></div></section>
+<section style="background:var(--ink2)"><div class="wrap">
+<h2>What are meteorites made of?</h2>
+<div class="types">
+<div class="rock" id="rock" data-t="stony" role="img" aria-label="Illustration of the selected meteorite type"></div>
+<div>
+<div class="tabs" role="group" aria-label="Meteorite types">
+<button class="btn" data-t="stony" aria-pressed="true">Stony</button>
+<button class="btn" data-t="iron" aria-pressed="false">Iron</button>
+<button class="btn" data-t="pallasite" aria-pressed="false">Stony-iron</button>
+</div>
+<h3 id="tt"></h3><p id="tp"></p>
+</div>
+</div>
+</div></section>
+
+<section><div class="wrap"><h2>How do we know what a rock is?</h2><p class="lede">A meteorite can look like an ordinary rock, until we study it.</p>
+<div class="ktabs" role="group" aria-label="Ways to study a meteorite"><button class="btn kt" aria-pressed="true">Chemistry</button><button class="btn kt" aria-pressed="false">Minerals</button><button class="btn kt" aria-pressed="false">Isotopes</button><button class="btn kt" aria-pressed="false">Texture</button></div>
+<div class="two"><svg id="kart" class="art" viewBox="0 0 320 200" role="img" aria-label="Illustration of the selected method"></svg><div><h3 id="kt1" style="font-size:1.6rem;margin-bottom:10px"></h3><p id="kt2"></p></div></div></div></section>
+<section style="background:var(--ink2)"><div class="wrap" style="text-align:center"><div class="big" id="cnt">4.56</div><div class="bigsub">billion years</div>
+<p class="lede" style="margin:12px auto 18px">Some meteorites preserve material from the earliest Solar System.</p>
+<svg class="art" viewBox="0 0 640 40" style="max-height:40px;margin-bottom:14px" role="img" aria-label="A timeline from the birth of the Solar System to today"><defs><linearGradient id="tg"><stop offset="0" stop-color="#8b6cff"/><stop offset="1" stop-color="#ffc24b"/></linearGradient></defs><rect x="20" y="17" width="600" height="6" rx="3" fill="url(#tg)"/><circle cx="24" cy="20" r="10" fill="#8b6cff"/><circle cx="320" cy="20" r="10" fill="#63e6da"/><circle cx="616" cy="20" r="10" fill="#ffc24b"/></svg>
+<div class="tl"><div><b>4.56 billion years ago</b><p>The Solar System forms.</p></div><div><b>Sealed in space</b><p>The rock drifts for ages, barely changing.</p></div><div><b>Today</b><p>It lands, and we can study it.</p></div></div>
+<div class="rule" style="display:inline-block"><p style="margin:0"><b>A meteorite can be a time capsule.</b></p></div></div></section>
+<section><div class="wrap">
+<h2>Falls with a story</h2>
+<div class="falls">
+<div class="fall"><h3>Chelyabinsk, Russia, 2013</h3><p>A rock roughly the size of a building exploded in the air above the city. No big crater: the shockwave arrived minutes after the flash and blew out windows across town. It is the best-recorded airburst ever, thanks to dashboard cameras.</p></div>
+<div class="fall"><h3>Sylacauga, Alabama, 1954</h3><p>A stone crashed through a roof and bruised a woman napping on her couch. She remains one of the very few people documented as struck by a meteorite.</p></div>
+<div class="fall"><h3>Peekskill, New York, 1992</h3><p>A meteorite landed on a parked Chevy Malibu. The car's owner later sold the car, famously, for far more than it cost.</p></div>
+<div class="fall"><h3>Hoba, Namibia</h3><p>The largest known intact meteorite, a slab of iron that is still lying where it fell thousands of years ago. It is too heavy to move, so visitors come to it.</p></div>
+</div>
+</div></section>
+
+<section style="background:var(--ink2)"><div class="wrap">
+<h2>Myths, politely busted</h2>
+<details><summary>Shooting stars are stars falling</summary><p>They are not stars at all. A typical shooting star is a grain of dust lighting up for a second or two, tens of kilometres overhead. Real stars are far too big and far too far away to fall.</p></details>
+<details><summary>Meteorites land red-hot</summary><p>Usually not. The fiery part happens high up. Near the end the rock slows dramatically and the cold of the upper atmosphere has had time to chill its interior, so many finds are cool, or at most warm, to the touch.</p></details>
+<details><summary>Every meteorite makes a crater</summary><p>Only the biggest, fastest impacts do. Small falls slow down enough to land as ordinary rocks, sometimes making just a small pit in soil.</p></details>
+<details><summary>If it is heavy and weird, it is a meteorite</summary><p>Most suspicious rocks are earthly (the community nickname is meteorwrongs). Slag, magnetite and plain old basalt fool people all the time. See the field checks below.</p></details>
+</div></section>
+
+<section><div class="wrap">
+<h2>Look up: meteor showers</h2>
+<p class="lede">Showers happen when Earth ploughs through the dusty trail left by a comet or asteroid.</p>
+<svg class="art" viewBox="0 0 640 200" style="margin:0 0 24px;max-height:34vh" role="img" aria-label="Meteors appearing to spread out from a single point in the sky"><rect width="640" height="200" rx="22" fill="#0a0528"/><g id="rad"></g><circle cx="320" cy="100" r="5" fill="#ffc24b"/><text x="332" y="88" fill="#ffc24b" font-size="15" font-family="Literata,serif">radiant</text></svg>
+<div class="show">
+<div><h3>Perseids</h3><b>Peak in mid-August</b><p>Debris from comet Swift-Tuttle. Warm summer nights, a crowd favourite.</p></div>
+<div><h3>Orionids</h3><b>Peak in late October</b><p>Debris from Halley's Comet, which means you can watch pieces of it burn up.</p></div>
+<div><h3>Leonids</h3><b>Peak in mid-November</b><p>From comet Tempel-Tuttle, famous for rare, wild storms in some years.</p></div>
+<div><h3>Geminids</h3><b>Peak in mid-December</b><p>Unusual: its source is an asteroid, 3200 Phaethon, and it is often the year's richest show.</p></div>
+</div>
+</div></section>
+
+<section style="background:var(--ink2)"><div class="wrap">
+<h2>Found a rock? Field checks</h2>
+<p class="lede">These do not prove anything, but they are the usual first filters. Labs confirm the rest.</p>
+<div class="test">
+<div><h3>Heavier than it looks</h3><p>Metal-rich meteorites feel surprisingly dense for their size.</p></div>
+<div><h3>Magnet test</h3><p>Most meteorites hold some metal and attract a magnet. Many earth rocks do not.</p></div>
+<div><h3>Thin dark crust</h3><p>Fresh falls have a thin, glassy fusion crust from the burn.</p></div>
+<div><h3>No bubbles</h3><p>Holes and gas bubbles usually mean slag or volcanic rock.</p></div>
+</div>
+<div class="rule"><p style="margin:0"><b>Think you found one?</b> Photograph it where it lies, note the exact spot, and keep it uncleaned and uncut. Then contact a museum or university: they can test it properly.</p></div>
+</div></section>
+<section><div class="wrap"><h2>Next time you see a shooting star&hellip;</h2><p class="lede">&hellip;you are watching a piece of the Solar System meet our atmosphere.</p><p>A piece of the Solar System, briefly visible from Earth. Questions?</p>
+<button class="btn play" data-play>Play Meteorwrong!</button></div></section>
+<section style="background:var(--ink2)"><div class="wrap"><h2>Sources &amp; further reading</h2><ul class="src" style="list-style:none;padding:0"><li><b>NASA Science:</b> Meteors &amp; Meteorites, Facts</li><li><b>NASA Science:</b> Meteors &amp; Meteorites, Overview</li><li><b>NASA/JPL CNEOS:</b> Fireballs</li><li><b>NASA:</b> Fireball questions &amp; skywatching</li></ul><p style="color:var(--dim)">All artwork in this app was created for this presentation.</p></div></section>
+</main>
+
+<footer><div class="wrap">Everything here is a simplified overview. For a real specimen, ask a university geology department or a museum.</div></footer>
+
+<div id="gm" role="dialog" aria-label="Meteorwrong game"></div>
+<script type="text/plain" id="gsrc">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meteorwrong! A game about catching space rocks (and not socks)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;800;900&family=Literata:wght@400;600&display=swap">
+<style>
+:root{color-scheme:dark;--chalk:#f4eeff;--dim:#b9aadf;--flame:#ff5c7a;--gold:#ffc24b;--ice:#63e6da;--disp:'Unbounded','Arial Black',sans-serif;--body:'Literata',Georgia,serif;box-sizing:border-box}
+*{box-sizing:inherit}
+html,body{height:100%;margin:0;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+body{color:var(--chalk);font:400 1.05rem/1.6 var(--body);background:radial-gradient(60% 45% at 12% 18%,#6a35e866,transparent 70%),radial-gradient(50% 40% at 88% 32%,#ff4f8b48,transparent 70%),radial-gradient(55% 45% at 28% 82%,#1fc7c438,transparent 70%),radial-gradient(40% 35% at 92% 92%,#ffb34740,transparent 70%),#09041f}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block}
+#hud{position:fixed;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:flex-start;padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 0;pointer-events:none;font-family:var(--disp)}
+#sc{font-weight:900;font-size:2rem;line-height:1}
+#cb{color:var(--gold);font-weight:800;font-size:.9rem;padding-top:8px;min-width:4em;text-align:center}
+#hp{color:var(--flame);font-size:1.5rem;letter-spacing:.1em;line-height:1}
+#toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 74px);transform:translateX(-50%);max-width:88vw;text-align:center;font:800 .95rem var(--disp);background:#150c33e6;border:1.5px solid #ffffff30;border-radius:999px;padding:10px 18px;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.on{opacity:1}
+.ov{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px calc(24px + env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 24px;background:radial-gradient(circle,#150c33cc,#09041ff0)}
+.ov.hide{display:none}
+h1{font:900 clamp(2.3rem,11vw,4.4rem)/1 var(--disp);margin:0 0 14px;letter-spacing:-.03em}
+h1 span{background:linear-gradient(95deg,var(--gold),var(--flame));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ov p{max-width:32ch;margin:0 0 12px;color:var(--chalk)}
+.ov .small{color:var(--dim);font-size:.95rem}
+.fact{margin-top:6px;padding:12px 16px;border-left:4px solid var(--ice);background:#ffffff0d;border-radius:0 14px 14px 0;text-align:left;max-width:34ch;font-size:.95rem;color:var(--dim)}
+.btn{margin-top:18px;font:800 1rem var(--disp);color:#fff;background:var(--flame);border:0;border-radius:999px;padding:16px 34px;cursor:pointer;box-shadow:0 10px 30px #ff5c7a55}
+.btn:focus-visible{outline:3px solid var(--ice);outline-offset:3px}
+.leg{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:38ch;margin:6px 0 4px}
+.leg span{font:600 .85rem var(--body);background:#ffffff14;border:1px solid #ffffff22;border-radius:999px;padding:6px 12px;display:flex;align-items:center;gap:7px}
+.d{width:12px;height:12px;border-radius:50%;display:inline-block}.d.r{background:#4b3e52;box-shadow:0 0 8px #ffc24b}.d.i{background:#c5cfdc;box-shadow:0 0 8px #bfe8ff}
+#mute{position:fixed;left:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 34px);width:42px;height:42px;border-radius:50%;border:1.5px solid #ffffff33;background:#150c33b3;color:#fff;font-size:1.1rem;cursor:pointer}
+#pause{position:fixed;right:14px;top:calc(env(safe-area-inset-top,0px) + 54px);width:44px;height:44px;border-radius:50%;border:1.5px solid #ffffff33;background:#150c33b3;color:#fff;font-size:1.1rem;cursor:pointer;display:none}
+body[data-s=play] #pause{display:block}
+.btn.alt{background:#ffffff1f;box-shadow:none;margin-top:12px}
+@media(prefers-reduced-motion:no-preference){h1{animation:fl 3.5s ease-in-out infinite alternate}}
+@keyframes fl{to{transform:translateY(-8px)}}
+#sc small{font-size:.62rem;color:var(--dim);font-weight:600;letter-spacing:0}
+.back{margin-top:18px;color:var(--dim);font-size:.95rem}
+#best{margin-top:14px;font:800 .8rem var(--disp);color:var(--gold)}
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="Meteorwrong game area"></canvas>
+<div id="hud" aria-live="off"><div id="sc">0</div><div id="cb"></div><div id="hp" aria-label="Lives">&#9829;&#9829;&#9829;</div></div>
+<div id="toast" role="status"></div>
+<button id="mute" aria-label="Toggle sound">&#128266;</button>
+<button id="pause" aria-label="Pause game">&#10074;&#10074;</button>
+<div id="pz" class="ov hide"><h1>Paused</h1><p>Take a breath. The rocks will wait.</p><button class="btn" id="rs">Resume</button><button class="btn alt" id="rq">Restart</button><button class="btn alt" onclick="parent.postMessage('mw-close','*')">Exit to the lab</button></div>
+<div id="ov" class="ov">
+<h1>Meteor<span>wrong!</span></h1>
+<p id="msg">Catch real meteorites with your bucket. Shiny iron ones are worth extra. Dodge the fireballs.</p>
+<p class="small" id="msg2">Drag your finger or use the arrow keys. P pauses.</p>
+<div class="leg" id="leg"><span><i class="d r"></i>Rock +10</span><span><i class="d i"></i>Iron +25</span><span>&#128293; Fireball, ouch</span><span>&#129510; Meteorwrong, -10</span><span>&#129522; &#128737;&#65039; &#9203; Power-ups</span></div>
+<div class="fact" id="fact" hidden></div>
+<button class="btn" id="go">Start</button>
+<div id="best"></div>
+<a class="back" href="#" onclick="parent.postMessage('mw-close','*');return false">Back to the meteor lab</a>
+</div>
+
+<script>
+const $=s=>document.querySelector(s),cv=$('#c'),cx=cv.getContext('2d'),calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let W,H,D;
+function fit(){D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;cx.setTransform(D,0,0,D,0,0)}
+addEventListener('resize',fit);fit();
+const WRONG=[['\u{1F954}',"That's a potato."],['\u{1F9E6}','A sock. Not a meteorite.'],['\u{1F986}','Rubber duck detected.'],['\u{1F35E}','Bread. Tasty, not cosmic.'],['\u{1F45F}','A shoe. Rock-adjacent at best.'],['\u{1F9C0}','Moon cheese. Wrong moon.'],['\u{1F355}','Pizza is not a meteor.']];
+const FACTS=['A meteor is the streak of light. The rock you find afterward is the meteorite.','Most shooting stars are specks of dust, not rocks you could catch.','"Meteorwrong" is a real nickname for earth rocks that fool people.','Iron meteorites can show a woven crosshatch pattern when cut and etched.','The word meteorite only applies once the rock has landed.'];
+const RANKS=[[50,'Even a potato would have caught more.'],[150,'Respectable. The Astro club nods politely.'],[300,'Impressive. Meteorite hunters would hire you.'],[1e9,'Legend. Museums are calling.']];
+let st='menu',score=0,hp=3,combo=0,t=0,px=W/2,tx=W/2,py=0,items=[],parts=[],shake=0,flash=0,sp=0,tt,keys={L:0,R:0},last=0,best=0,pop=[],S={rocks:0,iron:0,wrong:0,bc:0},pw={magnet:0,shield:0,slow:0},muted=false,ac,hit=0,evT=0,nextEv=22,TP=84;
+try{best=+localStorage.getItem('mw-best')||0}catch(e){}
+const stars=Array.from({length:120},()=>({x:Math.random(),y:Math.random(),z:Math.random()*.9+.2,t:Math.random()*6}));
+function say(m,ms=1500){const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),ms)}
+function hud(){$('#sc').innerHTML=`${score}<small> Lv ${lvl}</small>`;$('#hp').textContent='\u2665'.repeat(hp)+'\u2661'.repeat(3-hp);const m=1+Math.floor(combo/5);$('#cb').textContent=combo>=5?`x${m} combo`:''}
+function buzz(n){try{navigator.vibrate&&navigator.vibrate(n)}catch(e){}}
+const TI=['Potato Collector','Backyard Stargazer','Certified Rock Hound','Meteorite Legend'],PI=Math.PI;
+let lvl=1;
+const POW={magnet:['\u{1F9F2}','99,230,218','Magnet! Rocks come to you.',7],shield:['\u{1F6E1}\uFE0F','255,194,75','Shield up! One free fireball.',12],slow:['\u23F3','139,108,255','Slow-mo. Breathe.',7]};
+function snd(f,d=.12,ty='sine',v=.06,sl=0){if(muted||!ac)return;try{const o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime;o.type=ty;o.frequency.setValueAtTime(f,n);if(sl)o.frequency.exponentialRampToValueAtTime(Math.max(30,f+sl),n+d);g.gain.setValueAtTime(v,n);g.gain.exponentialRampToValueAtTime(.0001,n+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(n+d)}catch(e){}}
+function start(){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)()}catch(e){}
+ st='play';score=0;hp=3;combo=0;t=0;sp=0;evT=0;nextEv=22;hit=0;lvl=1;items=[];parts=[];pop=[];S={rocks:0,iron:0,wrong:0,bc:0};pw={magnet:0,shield:0,slow:0};
+ $('#ov').classList.add('hide');hud();say('Go! Catch the dark rocks.');snd(440,.2,'triangle',.06,300)}
+function end(){st='over';buzz([80,40,80]);snd(220,.7,'triangle',.07,-160);
+ if(score>best){best=score;try{localStorage.setItem('mw-best',best)}catch(e){}}
+ const i=RANKS.findIndex(r=>score<r[0]);
+ $('#ov').classList.remove('hide');document.querySelector('h1').innerHTML='Game <span>over</span>';
+ $('#msg').textContent=`${TI[i]}, with ${score} points.`;
+ $('#msg2').textContent=`${RANKS[i][1]} You caught ${S.rocks+S.iron} rocks and ${S.wrong} meteorwrongs. Best combo: ${S.bc}.`;
+ $('#leg').hidden=true;const f=$('#fact');f.hidden=false;f.textContent=FACTS[Math.floor(Math.random()*FACTS.length)];
+ $('#go').textContent='Play again';$('#best').textContent=`Best: ${best}`}
+$('#go').onclick=start;
+$('#mute').addEventListener('pointerdown',e=>e.stopPropagation());
+$('#pause').addEventListener('pointerdown',e=>e.stopPropagation());
+$('#pause').onclick=()=>{if(st==='play')st='pause'};
+$('#rs').onclick=()=>{st='play'};$('#rq').onclick=start;
+$('#mute').onclick=e=>{muted=!muted;e.currentTarget.textContent=muted?'\u{1F507}':'\u{1F50A}'};
+addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='a')keys.L=1;if(e.key==='ArrowRight'||e.key==='d')keys.R=1;if(e.key==='Enter'&&st!=='play'&&st!=='pause')start();
+ if((e.key==='p'||e.key==='Escape')&&(st==='play'||st==='pause')){st=st==='play'?'pause':'play'}});
+addEventListener('keyup',e=>{if(e.key==='ArrowLeft'||e.key==='a')keys.L=0;if(e.key==='ArrowRight'||e.key==='d')keys.R=0});
+addEventListener('pointermove',e=>{tx=e.clientX});
+addEventListener('pointerdown',e=>{tx=e.clientX});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&st==='play'){st='pause'}});
+const setTP=()=>{TP=parseFloat(getComputedStyle($('#hud')).paddingTop)+66};addEventListener('resize',setTP);setTP();
+
+function spawn(amb){
+ const lv=1+Math.min(score,1000)/80,r=Math.random(),pf=Math.min(.1+score/1200,.3),x=30+Math.random()*(W-60),vy=(amb?90:120+lv*32)+Math.random()*70,vx=(Math.random()-.5)*(60+lv*10);
+ const o={x,y:-50,vx,vy,amb,a:Math.random()*6,spin:(Math.random()-.5)*4,j:Array.from({length:8},()=>.75+Math.random()*.4)};
+ const rock=()=>{const i=Math.random()<.18;o.k=i?'iron':'rock';o.r=i?18:17+Math.random()*7;o.pts=i?25:10};
+ if(amb||evT>0)rock();
+ else if(r<pf){o.k='fire';o.r=28}
+ else if(r<pf+Math.min(.28+score/2500,.4)){const w=WRONG[Math.floor(Math.random()*WRONG.length)];o.k='wrong';o.e=w[0];o.q=w[1];o.r=22}
+ else if(t>8&&Math.random()<.08){o.k='pow';o.p=['magnet','shield','slow'][Math.floor(Math.random()*3)];o.r=22}
+ else rock();
+ items.push(o)}
+function burst(x,y,col,n,s){for(let i=0;i<n;i++){const a=Math.random()*PI*2,v=Math.random()*s+30;parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-40,l:1,c:col,s:Math.random()*3+1.5})}}
+function poly(r,j){cx.beginPath();j.forEach((v,i)=>{const a=i/j.length*PI*2;cx[i?'lineTo':'moveTo'](Math.cos(a)*r*v,Math.sin(a)*r*v)});cx.closePath()}
+function drawItem(o){
+ cx.save();cx.translate(o.x,o.y);
+ if(o.k==='wrong'){cx.rotate(o.a);cx.font='42px serif';cx.fillText(o.e,0,2)}
+ else if(o.k==='pow'){const c=POW[o.p][1],f=cx.createRadialGradient(0,0,4,0,0,o.r*1.8);f.addColorStop(0,`rgba(${c},.6)`);f.addColorStop(1,`rgba(${c},0)`);cx.fillStyle=f;cx.beginPath();cx.arc(0,0,o.r*1.8,0,PI*2);cx.fill();cx.font='30px serif';cx.fillText(POW[o.p][0],0,2)}
+ else{
+  const g=cx.createLinearGradient(0,0,-o.vx*.45,-110);g.addColorStop(0,o.k==='fire'?'rgba(255,110,50,.85)':'rgba(255,190,90,.5)');g.addColorStop(1,'rgba(255,92,122,0)');
+  cx.fillStyle=g;cx.beginPath();cx.moveTo(-o.r*.8,0);cx.lineTo(o.r*.8,0);cx.lineTo(-o.vx*.45,-120);cx.fill();
+  if(o.k==='fire'){const f=cx.createRadialGradient(0,0,0,0,0,o.r*1.5);f.addColorStop(0,'#fff6d8');f.addColorStop(.35,'#ffb04a');f.addColorStop(1,'rgba(255,60,90,0)');cx.fillStyle=f;cx.beginPath();cx.arc(0,0,o.r*1.5,0,PI*2);cx.fill()}
+  else{cx.rotate(o.a);const ir=o.k==='iron';cx.shadowColor=ir?'#bfe8ff':'#ffc24b';cx.shadowBlur=16;poly(o.r,o.j);cx.fillStyle=ir?'#c5cfdc':'#4b3e52';cx.fill();cx.shadowBlur=0;cx.strokeStyle=ir?'#ffffffaa':'#ffc24b88';cx.lineWidth=2;cx.stroke();
+   if(ir){cx.strokeStyle='#ffffff66';cx.lineWidth=1.5;cx.beginPath();cx.moveTo(-o.r*.5,-o.r*.3);cx.lineTo(o.r*.4,o.r*.5);cx.moveTo(-o.r*.3,o.r*.5);cx.lineTo(o.r*.5,-o.r*.4);cx.stroke()}}
+ }
+ cx.restore()}
+function player(lean,ts){
+ cx.save();cx.translate(px,py);cx.rotate(lean);
+ if(pw.shield>0){const p=.5+.5*Math.sin(ts/150);cx.fillStyle=`rgba(255,194,75,${.1+p*.08})`;cx.strokeStyle=`rgba(255,215,120,${.5+p*.4})`;cx.lineWidth=3;cx.beginPath();cx.arc(0,-8,58,0,PI*2);cx.fill();cx.stroke()}
+ if(pw.magnet>0){cx.strokeStyle='rgba(99,230,218,.25)';cx.lineWidth=2;cx.setLineDash([6,8]);cx.beginPath();cx.arc(0,-30,Math.sqrt(52000),0,PI*2);cx.stroke();cx.setLineDash([])}
+ cx.font='46px serif';cx.fillText('\u{1F9D1}\u200D\u{1F680}',0,8);
+ const g=cx.createLinearGradient(0,-48,0,-14);g.addColorStop(0,'#63e6da');g.addColorStop(1,'#2a9fa6');cx.fillStyle=g;
+ cx.shadowColor=combo>=5?'#ffc24b':'#63e6da';cx.shadowBlur=pw.magnet>0||combo>=5?24:8;
+ cx.beginPath();cx.moveTo(-42,-46);cx.lineTo(42,-46);cx.lineTo(30,-14);cx.lineTo(-30,-14);cx.closePath();cx.fill();cx.shadowBlur=0;
+ cx.strokeStyle='#d8fffb';cx.lineWidth=3;cx.beginPath();cx.moveTo(-44,-46);cx.lineTo(44,-46);cx.stroke();cx.restore()}
+function scene(ts,rdt){
+ stars.forEach(s=>{s.y+=rdt*.01*s.z*(st==='play'?3:1);if(s.y>1)s.y=0;const a=calm?.7:.3+.7*Math.abs(Math.sin(ts/1000*s.z+s.t));cx.fillStyle=`rgba(255,255,255,${a})`;cx.beginPath();cx.arc(s.x*W,s.y*H,s.z*1.2,0,PI*2);cx.fill()});
+ const pcx=W*.8,pcy=H*.2+Math.sin(ts/4000)*4,pr=Math.min(W,H)*.09,ring=a=>{cx.strokeStyle='rgba(255,194,75,.42)';cx.lineWidth=pr*.14;cx.beginPath();cx.ellipse(pcx,pcy,pr*1.6,pr*.4,-.35,a,a+PI);cx.stroke()};
+ ring(PI);const pg=cx.createRadialGradient(pcx-pr*.4,pcy-pr*.4,pr*.1,pcx,pcy,pr);pg.addColorStop(0,'#c9a6ff');pg.addColorStop(.6,'#6a3fd0');pg.addColorStop(1,'#241552');
+ cx.fillStyle=pg;cx.beginPath();cx.arc(pcx,pcy,pr,0,PI*2);cx.fill();ring(0);
+ const hg=cx.createLinearGradient(0,H*.6,0,H);hg.addColorStop(0,'rgba(255,92,122,0)');hg.addColorStop(1,'rgba(255,140,100,.3)');cx.fillStyle=hg;cx.fillRect(0,H*.6,W,H*.4);
+ cx.fillStyle='#120a2b';cx.beginPath();cx.moveTo(0,H);cx.lineTo(0,H-30);for(let i=0;i<=16;i++)cx.lineTo(W*i/16,H-30-Math.sin(i*1.3)*8-Math.cos(i*.6)*6);cx.lineTo(W,H);cx.fill();
+ cx.beginPath();cx.arc(W*.14,H-36,16,PI,0);cx.fill();cx.fillStyle='#ffc24b';cx.fillRect(W*.14-1.5,H-51,3,13)}
+function frame(ts){
+ const rdt=Math.min((ts-last)/1000,.05);last=ts;let dt=rdt;if(hit>0){hit-=rdt;dt=rdt*.06}
+ py=H-62;document.body.dataset.s=st;$('#pz').classList.toggle('hide',st!=='pause');
+ if(keys.L||keys.R)tx=Math.max(30,Math.min(W-30,tx+(keys.R-keys.L)*rdt*700));
+ const px0=px;px+=(Math.max(30,Math.min(W-30,tx))-px)*Math.min(1,rdt*14);const lean=Math.max(-.3,Math.min(.3,(px-px0)*.04));
+ cx.clearRect(0,0,W,H);cx.save();cx.textAlign='center';cx.textBaseline='middle';
+ if(shake>0&&!calm)cx.translate((Math.random()-.5)*shake*14,(Math.random()-.5)*shake*14);shake=Math.max(0,shake-rdt*2.2);
+ scene(ts,rdt);
+ const live=st==='play';
+ if(live){
+  t+=dt;sp-=dt;if(evT>0)evT-=dt;
+  if(t>nextEv){nextEv+=26;evT=4.5;say(['Perseids','Leonids','Geminids','Orionids'][Math.floor(Math.random()*4)]+' shower! Rocks only!',2400);snd(520,.4,'sine',.06,400)}
+  if(sp<=0){spawn();sp=evT>0?.2:Math.max(.2,.85-score/600)*(.7+Math.random()*.6)}
+  for(const k in pw)if(pw[k]>0)pw[k]=Math.max(0,pw[k]-dt);
+  const nl=1+Math.floor(score/100);if(nl>lvl){lvl=nl;hud();say('Level '+nl+': '+['the sky is getting angrier.','rocks are speeding up.','hold on to your bucket.','the Astro club is impressed.'][nl%4],1900)}
+ }else if(st!=='pause'){sp-=rdt;if(sp<=0){spawn(true);sp=1.1}}
+ const wd=pw.slow>0?.55:1;
+ if(st!=='pause')items=items.filter(o=>{
+  const d=o.amb?rdt:dt*wd;
+  if(pw.magnet>0&&!o.amb&&o.k!=='fire'&&o.k!=='wrong'){const ax=px-o.x,ay=py-30-o.y;if(ax*ax+ay*ay<52000)o.vx=o.vx*(1-dt*2)+ax*dt*5}
+  o.x+=o.vx*d;o.y+=o.vy*d;o.a+=o.spin*d;
+  if(o.x<20||o.x>W-20)o.vx*=-1;
+  if(o.amb)return o.y<H+60;
+  if(!live)return true;
+  const dx=Math.abs(o.x-px),inB=dx<44+o.r*.4&&o.y>py-52&&o.y<py-6;
+  if(o.k==='fire'&&dx<40+o.r*.5&&o.y>py-48&&o.y<py+20){
+   if(pw.shield>0){pw.shield=0;burst(o.x,o.y,'255,194,75',22,220);say('Shield saved you!');snd(300,.3,'triangle',.07,300)}
+   else{hp--;combo=0;shake=.6;flash=1;hit=.14;burst(o.x,o.y,'255,140,60',28,230);buzz(120);say('Airburst! Ouch.');snd(90,.45,'square',.08,-40);hud();if(hp<=0)end()}
+   return false}
+  if(inB&&o.k!=='fire'){
+   if(o.k==='wrong'){S.wrong++;score=Math.max(0,score-10);combo=0;shake=.25;burst(o.x,o.y,'200,190,210',14,120);pop.push({x:o.x,y:o.y,s:'-10',c:'255,120,140',l:1});say(o.q);buzz(60);snd(180,.28,'sawtooth',.05,-80)}
+   else if(o.k==='pow'){pw[o.p]=POW[o.p][3];burst(o.x,o.y,POW[o.p][1],20,190);say(POW[o.p][2]);snd(500,.25,'sine',.06,500)}
+   else{o.k==='iron'?S.iron++:S.rocks++;combo++;S.bc=Math.max(S.bc,combo);const m=1+Math.floor(combo/5),p=o.pts*m;score+=p;
+    burst(o.x,o.y,o.k==='iron'?'190,230,255':'255,194,75',o.k==='iron'?26:14,170);pop.push({x:o.x,y:o.y,s:'+'+p,c:o.k==='iron'?'190,230,255':'255,210,110',l:1});
+    if(combo===5)say('Combo! Points are doubling.');snd(520+Math.min(combo,12)*45,.13,'triangle',.06);if(o.k==='iron')snd(990,.18,'sine',.04)}
+   hud();return false}
+  if(o.y>H-30){if(o.k==='rock'||o.k==='iron'){combo=0;hud()}burst(o.x,H-28,'150,130,170',6,60);return false}
+  return true});
+ items.forEach(drawItem);
+ cx.globalCompositeOperation='lighter';
+ parts=parts.filter(p=>p.l>0);
+ parts.forEach(p=>{p.l-=rdt*1.6;p.x+=p.vx*rdt;p.y+=p.vy*rdt;p.vy+=260*rdt;cx.fillStyle=`rgba(${p.c},${Math.max(p.l,0)})`;cx.beginPath();cx.arc(p.x,p.y,p.s,0,PI*2);cx.fill()});
+ cx.globalCompositeOperation='source-over';
+ pop=pop.filter(p=>p.l>0);cx.font='800 18px Unbounded,sans-serif';
+ pop.forEach(p=>{p.l-=rdt*1.2;p.y-=60*rdt;cx.fillStyle=`rgba(${p.c},${Math.max(p.l,0)})`;cx.fillText(p.s,p.x,p.y)});
+ player(lean,ts);
+ if(live){let n=0;for(const k in pw)if(pw[k]>0){const y=TP+n*30;cx.font='20px serif';cx.fillText(POW[k][0],30,y);cx.fillStyle=`rgba(${POW[k][1]},.9)`;cx.fillRect(48,y-3,64*pw[k]/POW[k][3],6);n++}}
+ cx.restore();
+ if(flash>0){cx.fillStyle=`rgba(255,70,90,${flash*.3})`;cx.fillRect(0,0,W,H);flash-=rdt*2.5}
+ requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+$('#best').textContent=best?`Best: ${best}`:'';
+<\/script>
+</body>
+</html>
+
+</script>
+<script>
+const $=s=>document.querySelector(s),cv=$('#sky'),cx=cv.getContext('2d');
+let W,H,D;
+function fit(){D=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*D;cv.height=H*D;cx.setTransform(D,0,0,D,0,0)}
+addEventListener('resize',fit);fit();
+const stars=Array.from({length:150},()=>({x:Math.random(),y:Math.random()*.8,s:Math.random()*1.3+.3,t:Math.random()*6}));
+const jit=Array.from({length:10},()=>.75+Math.random()*.45);
+const S={
+ grain:{r0:4,r1:0,end:.34,kind:'gone',heat:.6,say:'A grain like this is a meteoroid until it hits the thin upper air, then it becomes a quick meteor, a shooting star. It vaporises completely, tens of kilometres up. Nothing reaches the ground.'},
+ fist:{r0:13,r1:6,end:1,kind:'land',heat:1.4,say:'A fist-sized stone makes a bright meteor, loses much of its mass to the burn, then slows to a stop in the lower air and falls the last stretch in the dark. What lands is a meteorite.'},
+ house:{r0:28,r1:0,end:.56,kind:'burst',heat:2.6,say:'A building-sized rock cannot shed its energy gently. It becomes a fireball and breaks apart in one airburst, sending a shockwave down. Fragments may land as meteorites, scattered over a wide area.'}
+};
+let run=null,flash=0,puffs=[],k='fist',last=0;
+const stage=(t)=>{const e=$('#stage');e.dataset.s=t;e.textContent=t[0].toUpperCase()+t.slice(1)};
+function go(key){k=key;run={c:S[key],t:0,parts:[],done:false,landed:false};puffs=[];flash=0;stage('meteoroid');$('#say').textContent=S[key].say;
+ document.querySelectorAll('.row .btn').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===key))}
+const gy=()=>H*.86,pos=p=>({x:W*.8-W*.42*p,y:-24+(gy()+24)*p});
+const lerp=(a,b,t)=>a+(b-a)*t;
+function rock(x,y,r,col){cx.beginPath();jit.forEach((j,i)=>{const a=i/jit.length*6.283;cx[i?'lineTo':'moveTo'](x+Math.cos(a)*r*j,y+Math.sin(a)*r*j)});cx.closePath();cx.fillStyle=col;cx.fill()}
+function frame(ts){
+ const dt=Math.min((ts-last)/1000,.05);last=ts;
+ const g=cx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#07031a');g.addColorStop(.55,'#2a1566');g.addColorStop(.85,'#a3306a');g.addColorStop(1,'#ff9a5c');
+ cx.fillStyle=g;cx.fillRect(0,0,W,H);
+ stars.forEach(s=>{const a=.4+.6*Math.abs(Math.sin(ts/900+s.t))*(1-s.y*1.1);cx.fillStyle=`rgba(255,255,255,${Math.max(a,0)})`;cx.fillRect(s.x*W,s.y*H,s.s,s.s)});
+ cx.font='12px Literata,serif';cx.setLineDash([5,7]);cx.lineWidth=1;
+ [[.2,'~100 km: space ends'],[.4,'~80 km: most meteors glow here'],[.62,'~20 km: big ones airburst']].forEach(([f,t])=>{cx.strokeStyle='#ffffff38';cx.beginPath();cx.moveTo(0,gy()*f);cx.lineTo(W,gy()*f);cx.stroke();cx.fillStyle='#ffffff99';cx.fillText(t,14,gy()*f-6)});
+ cx.setLineDash([]);
+ // ground
+ cx.fillStyle='#120a2b';cx.beginPath();cx.moveTo(0,H);cx.lineTo(0,gy()+8);
+ for(let i=0;i<=12;i++)cx.lineTo(W*i/12,gy()+8-Math.sin(i*1.7)*10-(i%3)*4);
+ cx.lineTo(W,H);cx.fill();
+ if(run){
+  const c=run.c;
+  if(!run.done){run.t+=dt/3.6;}
+  const p=Math.min(run.t,c.end),gl=p<.2?0:Math.min(1,(p-.2)/.1);
+  const span=c.kind==='land'?1:c.end,r=lerp(c.r0,c.r1,Math.min(p/span,1)),q=pos(p);
+  if(!run.done&&gl>0&&r>.4)for(let i=0;i<Math.ceil(r/3)+1;i++)run.parts.push({x:q.x,y:q.y,vx:(Math.random()-.2)*40+30,vy:-Math.random()*60-20,l:1,s:r*(.4+Math.random()*.6)});
+  cx.globalCompositeOperation='lighter';
+  run.parts=run.parts.filter(o=>o.l>0);
+  run.parts.forEach(o=>{o.l-=dt*1.3;o.x+=o.vx*dt;o.y+=o.vy*dt;const a=Math.max(o.l,0);cx.fillStyle=`rgba(255,${Math.round(70+a*140)},${Math.round(60+a*20)},${a*.5})`;cx.beginPath();cx.arc(o.x,o.y,o.s*a+1,0,6.283);cx.fill()});
+  if(gl>0&&(!run.done||(c.kind==='land'&&false))&&r>.4){const R=r*(2.5+c.heat*2)*gl,rg=cx.createRadialGradient(q.x,q.y,0,q.x,q.y,R);rg.addColorStop(0,'rgba(255,240,200,.95)');rg.addColorStop(.3,'rgba(255,170,60,.55)');rg.addColorStop(1,'rgba(255,60,100,0)');cx.fillStyle=rg;cx.beginPath();cx.arc(q.x,q.y,R,0,6.283);cx.fill()}
+  cx.globalCompositeOperation='source-over';
+  if(!run.done&&r>.4)rock(q.x,q.y,r,gl?'#ffd9a0':'#6d6a78');
+  if(run.landed&&c.kind==='land')rock(q.x,gy()+6,c.r1*.8,'#3a3040');
+  if(!run.done&&p<.2)stage('meteoroid');else if(!run.done)stage('meteor');
+  if(!run.done&&run.t>=c.end){
+   run.done=true;
+   if(c.kind==='gone'){stage('meteor');$('#say').textContent=c.say+' It ended as dust and a brief streak.'}
+   if(c.kind==='burst'){flash=1;stage('meteorite');for(let i=0;i<14;i++)puffs.push({x:q.x,y:q.y,vx:(Math.random()-.5)*160,vy:Math.random()*60+20,l:1,f:1})}
+   if(c.kind==='land'){run.landed=true;stage('meteorite');for(let i=0;i<10;i++)puffs.push({x:q.x,y:gy(),vx:(Math.random()-.5)*90,vy:-Math.random()*40,l:1})}
+  }
+  puffs=puffs.filter(o=>o.l>0);
+  puffs.forEach(o=>{o.l-=dt*(o.f?.5:.7);o.x+=o.vx*dt;o.y+=o.vy*dt;if(o.f){o.vy+=120*dt;if(o.y>gy()+4){o.y=gy()+4;o.vy=0;o.vx*=.8}}
+   cx.fillStyle=o.f?`rgba(255,200,120,${Math.max(o.l,0)+.2})`:`rgba(220,190,170,${o.l*.5})`;cx.beginPath();cx.arc(o.x,o.y,o.f?3:6+(1-o.l)*10,0,6.283);cx.fill()});
+  if(flash>0){cx.fillStyle=`rgba(255,235,210,${flash*.6})`;cx.fillRect(0,0,W,H);flash-=dt*1.6}
+ }
+ requestAnimationFrame(frame)
+}
+requestAnimationFrame(frame);
+document.querySelectorAll('.row .btn').forEach(b=>b.onclick=()=>go(b.dataset.k));
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setTimeout(()=>go('fist'),500);
+
+const bg=$('#bg'),bx=bg.getContext('2d'),calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let BW,BH,shoot=[];
+function bfit(){BW=bg.width=innerWidth;BH=bg.height=innerHeight}
+bfit();addEventListener('resize',bfit);
+const L=[[.2,110],[.5,60],[1,28]].flatMap(([z,n])=>Array.from({length:n},()=>({x:Math.random(),y:Math.random(),z,t:Math.random()*6,c:Math.random()<.25?'255,200,150':Math.random()<.5?'170,220,255':'255,255,255'})));
+function bgf(ts){
+ bx.clearRect(0,0,BW,BH);
+ L.forEach(s=>{const y=((s.y*BH-scrollY*s.z*.3)%BH+BH)%BH,a=calm?.7:.35+.65*Math.abs(Math.sin(ts/1100*s.z+s.t));
+  bx.fillStyle=`rgba(${s.c},${a})`;bx.beginPath();bx.arc(s.x*BW,y,s.z*1.1+.4,0,6.283);bx.fill()});
+ if(!calm){
+  if(Math.random()<.008)shoot.push({x:Math.random()*BW*.9,y:Math.random()*BH*.45,l:1});
+  shoot=shoot.filter(m=>m.l>0);
+  shoot.forEach(m=>{m.l-=.025;m.x+=14;m.y+=6;const g=bx.createLinearGradient(m.x,m.y,m.x-130,m.y-55);
+   g.addColorStop(0,`rgba(255,235,200,${m.l})`);g.addColorStop(1,'rgba(255,92,122,0)');
+   bx.strokeStyle=g;bx.lineWidth=2;bx.beginPath();bx.moveTo(m.x,m.y);bx.lineTo(m.x-130,m.y-55);bx.stroke()});
+ }
+ requestAnimationFrame(bgf)}
+requestAnimationFrame(bgf);
+const root=document.documentElement,pb=$('#pbtn'),ct=$('#ct'),slides=[$('.hero'),...document.querySelectorAll('main section')];
+let wasFS=false;
+const cur=()=>{let i=0;slides.forEach((s,j)=>{if(s.getBoundingClientRect().top<=innerHeight*.4)i=j});return i};
+let t0=0,tmr=0;const upd=()=>{const e=Math.floor((Date.now()-t0)/1000),m=String(Math.floor(e/60)).padStart(2,'0'),sc=String(e%60).padStart(2,'0');ct.textContent=`${cur()+1} / ${slides.length}  \u00b7  ${m}:${sc}  \u00b7  Esc exits`;ct.style.color=e>900?'var(--flame)':''};
+function setP(on){root.classList.toggle('present',on);pb.textContent=on?'Exit':'Present';pb.setAttribute('aria-pressed',on);
+ try{if(on){root.requestFullscreen&&root.requestFullscreen().catch(()=>{})}else if(document.fullscreenElement)document.exitFullscreen()}catch(e){}
+ clearInterval(tmr);if(on){t0=Date.now();tmr=setInterval(upd,1000)}fit();upd();if(on)slides[0].scrollIntoView()}
+pb.onclick=()=>setP(!root.classList.contains('present'));
+function step(d){slides[Math.max(0,Math.min(slides.length-1,cur()+d))].scrollIntoView({behavior:calm?'auto':'smooth'})}
+addEventListener('keydown',e=>{
+ const P=root.classList.contains('present');
+ if(e.key==='Escape'&&P){setP(false);return}
+ if(!P||e.metaKey||e.ctrlKey||e.altKey)return;
+ const onBtn=e.target.closest&&e.target.closest('button,summary');
+ if(['ArrowDown','ArrowRight','PageDown'].includes(e.key)||(e.key===' '&&!onBtn)){e.preventDefault();step(1)}
+ else if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();step(-1)}
+});
+addEventListener('scroll',upd,{passive:true});
+document.addEventListener('fullscreenchange',()=>{if(document.fullscreenElement)wasFS=true;else if(wasFS){wasFS=false;setP(false)}});
+const T={
+ stony:['Stony: the common ones','About nine in ten falls are stony. Many are chondrites, packed with tiny glassy spheres called chondrules that formed in the young solar system roughly 4.5 billion years ago. Under a hand lens they look like a rock stuffed with BBs.'],
+ iron:['Iron: pieces of dead cores','Mostly iron and nickel, from the cores of asteroids that once melted and separated. Cut and etched with acid, many show a woven crosshatch called Widmanstätten patterns, which take millions of years to form and cannot be made on Earth.'],
+ pallasite:['Stony-iron: the jewels','The rarest group: metal packed with glassy green olivine crystals, thought to come from the boundary between core and mantle in a broken asteroid. Thin slices glow like stained glass when held to light.']
+};
+function tp(t){$('#tt').textContent=T[t][0];$('#tp').textContent=T[t][1];$('#rock').dataset.t=t;document.querySelectorAll('.tabs .btn').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===t))}
+document.querySelectorAll('.tabs .btn').forEach(b=>b.onclick=()=>tp(b.dataset.t));tp('stony');
+
+const gm=$('#gm');
+function openGame(){const f=document.createElement('iframe');f.title='Meteorwrong game';f.srcdoc=$('#gsrc').textContent.replace(/<\\\/script>/g,'<'+'/script>');f.onload=()=>{try{f.contentWindow.focus()}catch(e){}};gm.appendChild(f);gm.classList.add('on');root.style.overflow='hidden'}
+function closeGame(){gm.classList.remove('on');gm.innerHTML='';root.style.overflow=''}
+document.querySelectorAll('[data-play]').forEach(b=>b.onclick=openGame);
+addEventListener('message',e=>{if(e.data==='mw-close')closeGame()});
+
+const rk=$('#rk'),rky=$('#rocky'),rg=$('#rg'),rt=$('#rt'),rm=$('#rm'),rn=$('#rkn'),rtx=$('#rkt');
+function rockyAt(p){p/=100;const o=p>.28&&p<.88?Math.sin((p-.28)/.6*Math.PI):0;
+ rky.setAttribute('transform',`translate(${70+400*p} ${50+138*p}) scale(${1-.3*p})`);rg.setAttribute('opacity',o);rt.setAttribute('opacity',o);
+ rm.setAttribute('d',p>.28&&p<.9?'M-8 12 Q0 4 8 12':'M-8 8 Q0 15 8 8');
+ const[n,c,t]=p<.28?['Meteoroid','#63e6da','Rocky drifts quietly through space.']:p<.9?['Meteor','#ff5c7a','The air in front of Rocky is squeezed and heated. That glow is the meteor.']:['Meteorite','#ffc24b','Rocky survived and landed. Congratulations, Rocky!'];
+ rn.textContent=n;rn.style.color=c;rtx.textContent=t}
+rk.oninput=()=>rockyAt(+rk.value);rockyAt(0);
+const rd=$('#rad');for(let i=0;i<24;i++){const a=i/24*6.283+Math.random()*.2,r1=24+Math.random()*60,r2=r1+40+Math.random()*100,c=Math.cos(a),n=Math.sin(a);
+ rd.insertAdjacentHTML('beforeend',`<line class="sk" x1="${320+c*r1*2}" y1="${100+n*r1*.8}" x2="${320+c*r2*2}" y2="${100+n*r2*.8}" stroke="${i%3?'#ffd98a':'#8fd9ff'}" stroke-width="2.2" stroke-linecap="round" style="animation-delay:${(Math.random()*3).toFixed(2)}s"/>`)}
+const hx=(x,y,r)=>[0,1,2,3,4,5].map(i=>`${x+r*Math.cos(i*1.047)},${y+r*Math.sin(i*1.047)}`).join(' ');
+const KA=[
+ ()=>['Fe','Ni','Mg','Si','O','Ca'].map((s,i)=>`<rect x="${20+i%3*100}" y="${25+(i>2)*85}" width="90" height="72" rx="12" fill="${['#c5cfdc','#8fd9ff','#63e6da','#ffb04a','#ff5c7a','#b39cff'][i]}"/><text x="${65+i%3*100}" y="${73+(i>2)*85}" text-anchor="middle" font-size="30" font-weight="800" fill="#150c33" font-family="Unbounded,sans-serif">${s}</text>`).join(''),
+ ()=>[[90,70],[150,100],[90,130],[210,70],[270,100],[210,130]].map((p,i)=>`<polygon points="${hx(p[0],p[1],34)}" fill="${['#9fd95a','#6fa83a','#c5cfdc','#b08a5a','#9fd95a','#8fd9ff'][i]}" stroke="#150c33" stroke-width="3"/>`).join(''),
+ ()=>`<path d="M25 25 C90 40 130 130 295 175" fill="none" stroke="#ffc24b" stroke-width="5"/>`+[[25,25],[87,60],[164,118],[295,175]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="8" fill="#ff5c7a"/>`).join('')+`<text x="170" y="60" fill="#b9aadf" font-size="15" font-family="Literata,serif">half-life clock</text>`,
+ ()=>`<rect x="15" y="15" width="290" height="170" rx="16" fill="#3b2f45"/>`+Array.from({length:22},(_,i)=>`<circle cx="${40+(i*67%260)}" cy="${35+(i*43%130)}" r="${8+(i*7%11)}" fill="${['#b08a5a','#8d7a6a','#d8b87a'][i%3]}" stroke="#150c33" stroke-width="2"/>`).join('')
+];
+const KT=[['Chemistry','What elements are present? Iron, nickel, magnesium and silicon hint at the kind of space rock it came from.'],['Minerals','What minerals and textures formed? Crystals like olivine and grains of metal grow under specific conditions.'],['Isotopes','What do radioactive clocks reveal? Radioactive atoms decay at steady rates, so they work like clocks that date the rock.'],['Texture','How did the material cool or change? Tiny glassy beads called chondrules show how the rock formed, heated or was shocked.']];
+function kset(i){document.querySelectorAll('.kt').forEach((b,j)=>b.setAttribute('aria-pressed',i===j));$('#kart').innerHTML=KA[i]();$('#kt1').textContent=KT[i][0];$('#kt2').textContent=KT[i][1]}
+document.querySelectorAll('.kt').forEach((b,i)=>b.onclick=()=>kset(i));kset(0);
+const cn=$('#cnt');let cd=false;if(!calm)cn.textContent='0.00';
+new IntersectionObserver(es=>{if(es[0].isIntersecting&&!cd){cd=true;if(calm)return;const t0=performance.now();(function f(n){const k=Math.min((n-t0)/1600,1);cn.textContent=(4.56*(1-Math.pow(1-k,3))).toFixed(2);if(k<1)requestAnimationFrame(f)})(t0)}},{threshold:.5}).observe(cn);
+</script>
+</body>
+</html>

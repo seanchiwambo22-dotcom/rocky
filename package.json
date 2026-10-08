@@ -1,0 +1,32 @@
+{
+  "name": "rocks-from-the-sky",
+  "version": "1.0.0",
+  "description": "A meteor lab: meteoroids, meteors and meteorites, plus the Meteorwrong game.",
+  "author": "Sean Chiwambo",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "fonts": "node scripts/localize-fonts.js",
+    "start": "electron .",
+    "dist:win": "electron-builder --win --publish never"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/cli": "^6.2.0",
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/status-bar": "^6.0.0",
+    "@fontsource/literata": "^5.1.0",
+    "@fontsource/unbounded": "^5.1.0",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.rockyjourney.app",
+    "productName": "Rocks from the Sky",
+    "directories": { "output": "dist" },
+    "files": ["main.js", "www/**/*", "build/icon.png"],
+    "win": { "target": ["nsis", "portable"], "icon": "build/icon.ico" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true, "artifactName": "RocksFromTheSky-Setup-${version}.${ext}" },
+    "portable": { "artifactName": "RocksFromTheSky-Portable-${version}.${ext}" }
+  }
+}

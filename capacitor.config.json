@@ -1,0 +1,9 @@
+{
+  "appId": "com.rockyjourney.app",
+  "appName": "Rocks from the Sky",
+  "webDir": "www",
+  "backgroundColor": "#150c33",
+  "plugins": {
+    "StatusBar": { "style": "DARK", "backgroundColor": "#150c33", "overlaysWebView": false }
+  }
+}
